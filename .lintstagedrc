@@ -1,0 +1,4 @@
+{
+  "*.spec.ts": "bun test:unit",
+  "*.vue": ["bun lint", "bun format"]
+}
