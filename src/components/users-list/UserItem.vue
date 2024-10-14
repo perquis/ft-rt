@@ -8,15 +8,16 @@ const props = defineProps<User>();
 const router = useRouter();
 
 const redirectToEditPage = () => router.push(`/edit/${props.id}`);
-const deleteUser = (id: string) =>
+const deleteUser = (id: string) => {
   fetch(`http://localhost:3000/users/${id}`, { method: 'DELETE' });
+  window.location.reload();
+};
 </script>
 
 <template>
   <div
     :class="[
-      'flex flex-wrap gap-2 rounded-md py-2 pl-4 pr-4 sm:items-center sm:gap-0 sm:pr-16',
-      $props.index! % 2 === 0 ? 'bg-gray-100' : '',
+      'flex flex-wrap gap-2 rounded-md py-2 pl-4 pr-4 odd:bg-gray-100 sm:items-center sm:gap-0 sm:pr-16',
     ]"
   >
     <div class="flex flex-1 items-center gap-5 sm:gap-0">
@@ -33,11 +34,19 @@ const deleteUser = (id: string) =>
         {{ $props.fullname }}
       </div>
     </div>
-    <div
-      class="flex-column flex w-fit gap-3 text-gray-400 sm:max-w-16 sm:flex-1"
-    >
-      <button @click="redirectToEditPage()"><IconEdit /></button>
-      <button @click="deleteUser($props.id!)"><IconTrash /></button>
+    <div class="flex-column flex w-fit gap-3 sm:max-w-16 sm:flex-1">
+      <button
+        class="text-gray-400 duration-200 ease-in-out hover:text-gray-500 focus-visible:text-gray-500"
+        @click="redirectToEditPage()"
+      >
+        <IconEdit />
+      </button>
+      <button
+        class="text-gray-400 duration-200 ease-in-out hover:text-gray-500 focus-visible:text-gray-500"
+        @click="deleteUser($props.id!)"
+      >
+        <IconTrash />
+      </button>
     </div>
   </div>
 </template>

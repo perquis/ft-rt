@@ -1,5 +1,18 @@
 <script setup lang="ts">
 import SearchIcon from '@/icons/SearchIcon.vue';
+import { useSearchStore } from '@/stores/search';
+import { ref, watch } from 'vue';
+
+const store = useSearchStore();
+
+const keyword = ref('');
+
+watch(
+  () => keyword.value,
+  newKeyword => {
+    store.setSearch(newKeyword);
+  },
+);
 </script>
 
 <template>
@@ -9,6 +22,7 @@ import SearchIcon from '@/icons/SearchIcon.vue';
     <input
       class="w-full bg-transparent py-2 text-gray-800 placeholder:font-medium placeholder:text-gray-500 focus:outline-none"
       type="search"
+      v-model="keyword"
       placeholder="Search for users..."
     />
 

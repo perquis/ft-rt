@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import UserItem from '@/components/users-list/UserItem.vue';
+import { getUsersAll } from '@/server/actions/get-users-all';
 import { getUsersList } from '@/server/actions/get-users-list';
+import { useSearchStore } from '@/stores/search';
 import type { User } from '@/types/user';
 import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
@@ -9,6 +11,8 @@ import UserHeading from './UserHeading.vue';
 
 const users = ref<User[]>([]);
 const route = useRoute();
+
+const store = useSearchStore();
 
 (async () => {
   const { data } = await getUsersList(Number(route.params.page) || 1);
@@ -24,17 +28,36 @@ watch(
     })();
   },
 );
+
+watch(
+  () => store.search,
+  newSearch => {
+    (async () => {
+      if (!newSearch) {
+        const { data } = await getUsersList(Number(route.params.page) || 1);
+        users.value = data;
+        return;
+      }
+
+      const data = await getUsersAll();
+      const newUsers = data.filter(user =>
+        user.fullname.toLowerCase().startsWith(newSearch.toLowerCase()),
+      );
+
+      users.value = newUsers;
+    })();
+  },
+);
 </script>
 
 <template>
   <FlexColumn>
     <UserHeading />
     <FlexColumn>
-      <template v-for="(user, index) in users" :key="user.id">
+      <template v-for="user in users" :key="user.id">
         <UserItem
           :fullname="user.fullname"
           :avatar="user.avatar"
-          :index="index"
           :id="user.id"
         />
       </template>
