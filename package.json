@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "concurrently \"vite\" \"bun db:run\"",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "test:unit": "vitest",
@@ -14,9 +14,11 @@
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
+    "db:run": "json-server users.json",
     "prepare": "husky"
   },
   "dependencies": {
+    "concurrently": "^9.0.1",
     "json-server": "^1.0.0-beta.3",
     "pinia": "^2.2.4",
     "vue": "^3.5.11",
