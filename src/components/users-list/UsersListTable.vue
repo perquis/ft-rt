@@ -2,16 +2,28 @@
 import UserItem from '@/components/users-list/UserItem.vue';
 import { getUsersList } from '@/server/actions/get-users-list';
 import type { User } from '@/types/user';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
 import FlexColumn from '../FlexColumn.vue';
 import UserHeading from './UserHeading.vue';
 
 const users = ref<User[]>([]);
+const route = useRoute();
 
 (async () => {
-  const { data } = await getUsersList();
+  const { data } = await getUsersList(Number(route.params.page) || 1);
   users.value = data;
 })();
+
+watch(
+  () => route.params.page,
+  newPage => {
+    (async () => {
+      const { data } = await getUsersList(Number(newPage) || 1);
+      users.value = data;
+    })();
+  },
+);
 </script>
 
 <template>

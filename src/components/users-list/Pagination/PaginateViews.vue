@@ -1,53 +1,74 @@
 <script setup lang="ts">
 import IconArrowLeft from '@/icons/IconArrowLeft.vue';
 import IconArrowRight from '@/icons/IconArrowRight.vue';
-import { getUsersList } from '@/server/actions/get-users-list';
-import { ref } from 'vue';
+import {
+  getUsersList,
+  type IGetUsersListResponse,
+} from '@/server/actions/get-users-list';
+import { reactive, ref, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import PaginateButton from './PaginateButton.vue';
 
 const items = ref<number[]>([]);
-const currentPage = ref(1);
-const totalPages = ref(0);
+const state = reactive<IGetUsersListResponse>({
+  data: [],
+  pages: 0,
+  first: 0,
+  last: 0,
+  items: 0,
+  next: null,
+  prev: null,
+});
 
-(async () => {
-  const { pages } = await getUsersList();
-  items.value = Array.from({ length: pages }, (_, index) => index + 1);
-  totalPages.value = pages;
-})();
+const route = useRoute();
+const router = useRouter();
+
+const fetchUsersList = async (page: number) => {
+  const data = await getUsersList(page);
+  Object.assign(state, data);
+  items.value = Array.from({ length: state.pages }, (_, index) => index + 1);
+};
+
+fetchUsersList(Math.max(Number(route.params.page) || 1, 1));
+
+watch(
+  () => route.params.page,
+  newPage => {
+    fetchUsersList(Math.max(Number(newPage) || 1, 1));
+  },
+);
 
 const nextPage = () => {
-  if (currentPage.value < totalPages.value) {
-    currentPage.value++;
+  if (state.next !== null) {
+    router.push(`/page/${state.next}`);
   }
 };
 
 const prevPage = () => {
-  if (currentPage.value > 1) {
-    currentPage.value--;
+  if (state.prev !== null) {
+    router.push(`/page/${state.prev}`);
   }
 };
 
-const paginateTo = (page: number) => {
-  currentPage.value = page;
-};
+const paginateTo = (page: number) => router.push(`/page/${page}`);
 </script>
 
 <template>
   <div class="flex w-fit rounded border border-gray-200 bg-white shadow-sm">
-    <PaginateButton :disabled="currentPage === 1" @click="prevPage">
+    <PaginateButton :disabled="state.prev === null" @click="prevPage">
       <IconArrowLeft />
     </PaginateButton>
 
     <template v-for="page in items" :key="page">
       <PaginateButton
-        :is-active="page === currentPage"
-        :disabled="page === currentPage"
+        :is-active="page === Number($route.params.page)"
+        :disabled="page === Number($route.params.page)"
         @click="paginateTo(page)"
         >{{ page }}</PaginateButton
       >
     </template>
 
-    <PaginateButton :disabled="currentPage === totalPages" @click="nextPage">
+    <PaginateButton :disabled="state.next === null" @click="nextPage">
       <IconArrowRight />
     </PaginateButton>
   </div>

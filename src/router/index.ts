@@ -9,6 +9,11 @@ const router = createRouter({
       name: 'users-list',
       component: UsersListView,
     },
+    {
+      path: '/page/:page',
+      name: 'users-list-page',
+      component: UsersListView,
+    },
   ],
 });
 

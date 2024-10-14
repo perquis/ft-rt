@@ -1,6 +1,6 @@
 import type { User } from '@/types/user';
 
-interface IGetUsersListResponse {
+export interface IGetUsersListResponse {
   data: User[];
   first: number;
   last: number;
