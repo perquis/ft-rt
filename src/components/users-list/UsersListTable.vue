@@ -34,8 +34,8 @@ watch(
         <UserItem
           :fullname="user.fullname"
           :avatar="user.avatar"
-          :user-id="user.userId"
           :index="index"
+          :id="user.id"
         />
       </template>
     </FlexColumn>
