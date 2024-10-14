@@ -61,7 +61,7 @@ const paginateTo = (page: number) => router.push(`/page/${page}`);
 
     <template v-for="page in items" :key="page">
       <PaginateButton
-        :is-active="page === Number($route.params.page)"
+        :is-active="page === Number($route.params.page || 1)"
         :disabled="page === Number($route.params.page)"
         @click="paginateTo(page)"
         >{{ page }}</PaginateButton
