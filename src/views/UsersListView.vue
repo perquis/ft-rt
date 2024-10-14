@@ -3,6 +3,7 @@ import Divider from '@/components/Divider.vue';
 import FlexColumn from '@/components/FlexColumn.vue';
 import PrimaryButton from '@/components/PrimaryButton.vue';
 import Title from '@/components/Title.vue';
+import PaginateViews from '@/components/users-list/Pagination/PaginateViews.vue';
 import SearchBar from '@/components/users-list/SearchBar.vue';
 import UsersListTable from '@/components/users-list/UsersListTable.vue';
 import IconPlus from '@/icons/IconPlus.vue';
@@ -28,5 +29,7 @@ import IconPlus from '@/icons/IconPlus.vue';
 
       <UsersListTable />
     </main>
+
+    <PaginateViews />
   </FlexColumn>
 </template>
