@@ -26,6 +26,10 @@ const prevPage = () => {
     currentPage.value--;
   }
 };
+
+const paginateTo = (page: number) => {
+  currentPage.value = page;
+};
 </script>
 
 <template>
@@ -38,6 +42,7 @@ const prevPage = () => {
       <PaginateButton
         :is-active="page === currentPage"
         :disabled="page === currentPage"
+        @click="paginateTo(page)"
         >{{ page }}</PaginateButton
       >
     </template>
