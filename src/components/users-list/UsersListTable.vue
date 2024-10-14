@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import UserItem from '@/components/users-list/UserItem.vue';
+import { getUsersList } from '@/server/actions/get-users-list';
 import type { User } from '@/types/user';
 import { ref } from 'vue';
 import FlexColumn from '../FlexColumn.vue';
@@ -7,9 +8,10 @@ import UserHeading from './UserHeading.vue';
 
 const users = ref<User[]>([]);
 
-fetch('http://localhost:3000/users?_start=0&_end=8')
-  .then(res => res.json())
-  .then(data => users.value.push(...data));
+(async () => {
+  const { data } = await getUsersList();
+  users.value = data;
+})();
 </script>
 
 <template>
