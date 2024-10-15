@@ -41,7 +41,9 @@ watch(
 
       const data = await getUsersAll();
       const newUsers = data.filter(user =>
-        user.fullname.toLowerCase().startsWith(newSearch.toLowerCase()),
+        `${user.firstName} ${user.lastName}`
+          .toLowerCase()
+          .startsWith(newSearch.toLowerCase()),
       );
 
       users.value = newUsers;
@@ -56,7 +58,8 @@ watch(
     <FlexColumn>
       <template v-for="user in users" :key="user.id">
         <UserItem
-          :fullname="user.fullname"
+          :first-name="user.firstName"
+          :last-name="user.lastName"
           :avatar="user.avatar"
           :id="user.id"
         />

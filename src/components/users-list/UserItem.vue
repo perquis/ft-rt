@@ -25,13 +25,12 @@ const deleteUser = (id: string) => {
         <img
           class="h-10 w-10 overflow-hidden rounded-full object-cover"
           :src="$props.avatar"
-          :alt="$props.fullname"
         />
       </div>
       <div
         class="flex-1 flex-shrink-0 truncate font-medium capitalize text-gray-700 sm:w-full"
       >
-        {{ $props.fullname }}
+        {{ $props.firstName }} {{ $props.lastName }}
       </div>
     </div>
     <div class="flex-column flex w-fit gap-3 sm:max-w-16 sm:flex-1">
