@@ -1,37 +1,43 @@
 <script setup lang="ts">
-import UserItem from '@/components/UserItem.vue';
+import ItemRow from '@/components/interns-list/ItemRow.vue';
 import type { Intern } from '@/interfaces/intern';
 import { client } from '@/services/client';
 import FlexColumn from '@/shared/ui/FlexColumn.vue';
 import { useSearchStore } from '@/stores/search';
-import { ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import UserHeading from './UserHeading.vue';
+import Heading from './Heading.vue';
 
 const users = ref<Intern[]>([]);
 const route = useRoute();
 
 const store = useSearchStore();
 
-(async () => {
-  const { data } = await client.getInterns(Number(route.params.page) || 1);
-  users.value = data.data;
-})();
+onMounted(async () => {
+  try {
+    const { data } = await client.getInterns(Number(route.params.page) || 1);
+    users.value = data.data;
+  } catch (error) {
+    console.error(error);
+  }
+});
 
 watch(
   () => route.params.page,
-  newPage => {
-    (async () => {
+  async newPage => {
+    try {
       const { data } = await client.getInterns(Number(newPage) || 1);
       users.value = data.data;
-    })();
+    } catch (error) {
+      console.error(error);
+    }
   },
 );
 
 watch(
   () => store.search,
-  newSearch => {
-    (async () => {
+  async newSearch => {
+    try {
       if (!newSearch) {
         const { data } = await client.getInterns(
           Number(route.params.page) || 1,
@@ -48,21 +54,25 @@ watch(
       );
 
       users.value = newUsers;
-    })();
+    } catch (error) {
+      console.error(error);
+    }
   },
 );
 </script>
 
 <template>
   <FlexColumn>
-    <UserHeading />
+    <Heading />
     <FlexColumn>
-      <template v-for="user in users" :key="user.id">
-        <UserItem
+      <template v-for="(user, index) in users" :key="user.id">
+        <ItemRow
           :first-name="user.firstName"
           :last-name="user.lastName"
           :avatar="user.avatar"
           :id="user.id"
+          :index="index"
+          :interns-length="users.length"
         />
       </template>
     </FlexColumn>

@@ -5,13 +5,23 @@ import type { Intern } from '@/interfaces/intern';
 import { client } from '@/services/client';
 import { useRouter } from 'vue-router';
 
-const props = defineProps<Intern>();
+const props = defineProps<Intern & { internsLength: number }>();
 const router = useRouter();
 
 const redirectToEditPage = () => router.push(`/edit/${props.id}`);
 const deleteUser = (id: string) => {
   client.deleteIntern(id);
-  window.location.reload();
+  if (props.internsLength > 1) {
+    window.location.reload();
+    return;
+  }
+
+  const currentPage = Number(router.currentRoute.value.params.page);
+  const page = currentPage - 1;
+
+  if (page === 0) return;
+
+  router.push(`/page/${page}`);
 };
 </script>
 

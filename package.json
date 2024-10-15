@@ -14,7 +14,7 @@
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
-    "db:run": "json-server users.json",
+    "db:run": "json-server interns.json",
     "prepare": "husky"
   },
   "dependencies": {

@@ -50,10 +50,10 @@
       "lastName": "Davis"
     },
     {
-      "avatar": "https://images.unsplash.com/photo-1504051771394-dd2e66b2e08f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "firstName": "Charlotte",
-      "id": "6a4e",
-      "lastName": "Thompson"
+      "lastName": "Thompson",
+      "avatar": "https://images.unsplash.com/photo-1504051771394-dd2e66b2e08f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "id": "6a4e"
     },
     {
       "avatar": "https://images.unsplash.com/photo-1506634572416-48cdfe530110?q=80&w=1970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",

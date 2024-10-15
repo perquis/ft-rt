@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import PaginateViews from '@/components/PaginateViews.vue';
-import SearchBar from '@/components/SearchBar.vue';
-import UsersListTable from '@/components/UsersListTable.vue';
+import InternsList from '@/components/interns-list/InternsList.vue';
+import Pagination from '@/components/pagination/Pagination.vue';
+import SearchBar from '@/components/search-bar/SearchBar.vue';
 import IconPlus from '@/icons/IconPlus.vue';
 import Divider from '@/shared/ui/Divider.vue';
 import FlexColumn from '@/shared/ui/FlexColumn.vue';
@@ -20,7 +20,7 @@ const addUser = () => router.push('/add');
 
     <main class="w-full rounded bg-white p-4 py-8 shadow-sm">
       <FlexColumn>
-        <div class="flex justify-between gap-5">
+        <div class="flex flex-col justify-between gap-5 sm:flex-row">
           <SearchBar />
           <PrimaryButton @click="addUser"
             ><span class="pointer-events-none">
@@ -32,9 +32,9 @@ const addUser = () => router.push('/add');
 
       <Divider />
 
-      <UsersListTable />
+      <InternsList />
     </main>
 
-    <PaginateViews />
+    <Pagination />
   </FlexColumn>
 </template>

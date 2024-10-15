@@ -8,6 +8,8 @@ const props = defineProps<{
   placeholder?: string;
 }>();
 
+const labeledName = computed(() => props.name.replace('-', ' '));
+
 const formatedName = computed(() => {
   const key = props.name.replace('-', '');
   return key.charAt(0).toLocaleLowerCase() + key.slice(1);
@@ -20,7 +22,7 @@ const formatedName = computed(() => {
       :for="name"
       class="block text-sm font-medium capitalize text-gray-700"
     >
-      {{ name.replace('-', ' ') }}
+      {{ labeledName }}
     </label>
     <input
       type="text"
@@ -28,6 +30,8 @@ const formatedName = computed(() => {
       :name="formatedName"
       :value="value"
       :placeholder="placeholder"
+      required
+      tabindex="1"
       minlength="3"
       class="block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 focus-visible:outline-none sm:text-sm"
     />

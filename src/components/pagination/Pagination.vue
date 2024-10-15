@@ -1,9 +1,10 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
 import IconArrowLeft from '@/icons/IconArrowLeft.vue';
 import IconArrowRight from '@/icons/IconArrowRight.vue';
 import type { IPagination } from '@/interfaces/pagination';
 import { client } from '@/services/client';
-import { reactive, ref, watch } from 'vue';
+import { onMounted, reactive, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import PaginateButton from './PaginateButton.vue';
 
@@ -27,7 +28,9 @@ const fetchUsersList = async (page: number) => {
   items.value = Array.from({ length: state.pages }, (_, index) => index + 1);
 };
 
-fetchUsersList(Math.max(Number(route.params.page) || 1, 1));
+onMounted(() => {
+  fetchUsersList(Math.max(Number(route.params.page) || 1, 1));
+});
 
 watch(
   () => route.params.page,

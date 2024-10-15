@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="flex items-center pb-4 pl-4 sm:pl-0 sm:pr-16">
     <div class="hidden w-full flex-1 sm:block sm:max-w-32"></div>
