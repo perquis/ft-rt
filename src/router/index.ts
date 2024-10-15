@@ -14,6 +14,16 @@ const router = createRouter({
       name: 'users-list-page',
       component: UsersListView,
     },
+    {
+      path: '/edit/:id',
+      name: 'edit-user',
+      component: () => import('../views/EditUserDetailsView.vue'),
+    },
+    {
+      path: '/add',
+      name: 'add-user',
+      component: () => import('../views/AddUserView.vue'),
+    },
   ],
 });
 

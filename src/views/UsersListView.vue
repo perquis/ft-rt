@@ -7,6 +7,11 @@ import PaginateViews from '@/components/users-list/Pagination/PaginateViews.vue'
 import SearchBar from '@/components/users-list/SearchBar.vue';
 import UsersListTable from '@/components/users-list/UsersListTable.vue';
 import IconPlus from '@/icons/IconPlus.vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+const addUser = () => router.push('/add');
 </script>
 
 <template>
@@ -17,7 +22,7 @@ import IconPlus from '@/icons/IconPlus.vue';
       <FlexColumn>
         <div class="flex justify-between gap-5">
           <SearchBar />
-          <PrimaryButton
+          <PrimaryButton @click="addUser"
             ><span class="pointer-events-none">
               <IconPlus width="20" height="20" /> </span
             >Add User</PrimaryButton
