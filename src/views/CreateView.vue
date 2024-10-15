@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import FlexColumn from '@/components/FlexColumn.vue';
-import InputField from '@/components/InputField.vue';
-import PrimaryButton from '@/components/PrimaryButton.vue';
-import Title from '@/components/Title.vue';
+import FlexColumn from '@/shared/ui/FlexColumn.vue';
+import InputField from '@/shared/ui/InputField.vue';
+import PrimaryButton from '@/shared/ui/PrimaryButton.vue';
+import Title from '@/shared/ui/Title.vue';
 import { createUser } from '@/server/actions/create-user';
 import type { User } from '@/types/user';
 import { reactive } from 'vue';

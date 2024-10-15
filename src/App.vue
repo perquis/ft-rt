@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import RootLayout from './components/RootLayout.vue';
+import RootLayout from './shared/ui/RootLayout.vue';
 </script>
 
 <template>

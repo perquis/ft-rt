@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import UserItem from '@/components/users-list/UserItem.vue';
+import UserItem from '@/components/UserItem.vue';
 import { getUsersAll } from '@/server/actions/get-users-all';
 import { getUsersList } from '@/server/actions/get-users-list';
+import FlexColumn from '@/shared/ui/FlexColumn.vue';
 import { useSearchStore } from '@/stores/search';
 import type { User } from '@/types/user';
 import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import FlexColumn from '../FlexColumn.vue';
 import UserHeading from './UserHeading.vue';
 
 const users = ref<User[]>([]);

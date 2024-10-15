@@ -1,28 +1,28 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import UsersListView from '../views/UsersListView.vue';
+import HomeView from '../views/HomeView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'users-list',
-      component: UsersListView,
+      name: 'home',
+      component: HomeView,
     },
     {
       path: '/page/:page',
-      name: 'users-list-page',
-      component: UsersListView,
+      name: 'home-page',
+      component: HomeView,
     },
     {
       path: '/edit/:id',
-      name: 'edit-user',
-      component: () => import('../views/EditUserDetailsView.vue'),
+      name: 'edit',
+      component: () => import('../views/EditView.vue'),
     },
     {
       path: '/add',
-      name: 'add-user',
-      component: () => import('../views/AddUserView.vue'),
+      name: 'create',
+      component: () => import('../views/CreateView.vue'),
     },
   ],
 });

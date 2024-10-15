@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import Divider from '@/components/Divider.vue';
-import FlexColumn from '@/components/FlexColumn.vue';
-import PrimaryButton from '@/components/PrimaryButton.vue';
-import Title from '@/components/Title.vue';
-import PaginateViews from '@/components/users-list/Pagination/PaginateViews.vue';
-import SearchBar from '@/components/users-list/SearchBar.vue';
-import UsersListTable from '@/components/users-list/UsersListTable.vue';
+import PaginateViews from '@/components/PaginateViews.vue';
+import SearchBar from '@/components/SearchBar.vue';
+import UsersListTable from '@/components/UsersListTable.vue';
 import IconPlus from '@/icons/IconPlus.vue';
+import Divider from '@/shared/ui/Divider.vue';
+import FlexColumn from '@/shared/ui/FlexColumn.vue';
+import PrimaryButton from '@/shared/ui/PrimaryButton.vue';
+import Title from '@/shared/ui/Title.vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
