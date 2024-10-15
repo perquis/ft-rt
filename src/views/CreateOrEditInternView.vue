@@ -103,6 +103,7 @@ const handleSubmit = (e: Event) => {
           :value="user.avatar"
           name="avatar"
           id="avatar"
+          type="url"
           required
           tabindex="1"
           placeholder="Enter avatar URL"
