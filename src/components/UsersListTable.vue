@@ -1,30 +1,29 @@
 <script setup lang="ts">
 import UserItem from '@/components/UserItem.vue';
-import { getUsersAll } from '@/server/actions/get-users-all';
-import { getUsersList } from '@/server/actions/get-users-list';
+import type { Intern } from '@/interfaces/intern';
+import { client } from '@/services/client';
 import FlexColumn from '@/shared/ui/FlexColumn.vue';
 import { useSearchStore } from '@/stores/search';
-import type { User } from '@/types/user';
 import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import UserHeading from './UserHeading.vue';
 
-const users = ref<User[]>([]);
+const users = ref<Intern[]>([]);
 const route = useRoute();
 
 const store = useSearchStore();
 
 (async () => {
-  const { data } = await getUsersList(Number(route.params.page) || 1);
-  users.value = data;
+  const { data } = await client.getInterns(Number(route.params.page) || 1);
+  users.value = data.data;
 })();
 
 watch(
   () => route.params.page,
   newPage => {
     (async () => {
-      const { data } = await getUsersList(Number(newPage) || 1);
-      users.value = data;
+      const { data } = await client.getInterns(Number(newPage) || 1);
+      users.value = data.data;
     })();
   },
 );
@@ -34,12 +33,14 @@ watch(
   newSearch => {
     (async () => {
       if (!newSearch) {
-        const { data } = await getUsersList(Number(route.params.page) || 1);
-        users.value = data;
+        const { data } = await client.getInterns(
+          Number(route.params.page) || 1,
+        );
+        users.value = data.data;
         return;
       }
 
-      const data = await getUsersAll();
+      const { data } = await client.getInternsAll();
       const newUsers = data.filter(user =>
         `${user.firstName} ${user.lastName}`
           .toLowerCase()

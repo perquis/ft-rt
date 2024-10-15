@@ -1,16 +1,14 @@
 <script setup lang="ts">
 import IconArrowLeft from '@/icons/IconArrowLeft.vue';
 import IconArrowRight from '@/icons/IconArrowRight.vue';
-import {
-  getUsersList,
-  type IGetUsersListResponse,
-} from '@/server/actions/get-users-list';
+import type { IPagination } from '@/interfaces/pagination';
+import { client } from '@/services/client';
 import { reactive, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import PaginateButton from './PaginateButton.vue';
 
 const items = ref<number[]>([]);
-const state = reactive<IGetUsersListResponse>({
+const state = reactive<IPagination>({
   data: [],
   pages: 0,
   first: 0,
@@ -24,7 +22,7 @@ const route = useRoute();
 const router = useRouter();
 
 const fetchUsersList = async (page: number) => {
-  const data = await getUsersList(page);
+  const { data } = await client.getInterns(page);
   Object.assign(state, data);
   items.value = Array.from({ length: state.pages }, (_, index) => index + 1);
 };

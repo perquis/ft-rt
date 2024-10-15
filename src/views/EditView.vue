@@ -1,16 +1,15 @@
 <script setup lang="ts">
+import IconCamera from '@/icons/IconCamera.vue';
+import type { Intern } from '@/interfaces/intern';
+import { client } from '@/services/client';
 import FlexColumn from '@/shared/ui/FlexColumn.vue';
 import InputField from '@/shared/ui/InputField.vue';
 import PrimaryButton from '@/shared/ui/PrimaryButton.vue';
 import Title from '@/shared/ui/Title.vue';
-import IconCamera from '@/icons/IconCamera.vue';
-import { getUserById } from '@/server/actions/get-user-by-id';
-import { updateUserById } from '@/server/actions/update-user-by-id';
-import type { User } from '@/types/user';
 import { reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
-const user = reactive<User>({
+const user = reactive<Intern>({
   id: '1',
   firstName: 'John',
   lastName: 'Doe',
@@ -20,8 +19,8 @@ const user = reactive<User>({
 const route = useRoute();
 
 (async () => {
-  const data = await getUserById(route.params.id as string);
-  Object.assign(user, data);
+  const data = await client.getInternById(route.params.id as string);
+  Object.assign(user, data.data);
 })();
 
 const isChangeAvatar = ref(false);
@@ -32,7 +31,7 @@ const updateDetails = (e: Event) => {
   const data = new FormData(e.target as HTMLFormElement);
   const updatedUser = Object.fromEntries(data.entries());
 
-  updateUserById(user.id!, { ...updatedUser, avatar: user.avatar });
+  client.updateIntern(user.id!, { ...updatedUser, avatar: user.avatar });
   window.location.reload();
 };
 
@@ -42,7 +41,7 @@ const updatePhoto = (e: Event) => {
   const data = new FormData(e.target as HTMLFormElement);
   const updatedUser = Object.fromEntries(data.entries());
 
-  updateUserById(user.id!, { ...user, ...updatedUser });
+  client.updateIntern(user.id!, { ...user, ...updatedUser });
   window.location.reload();
 };
 </script>

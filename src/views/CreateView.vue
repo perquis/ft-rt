@@ -1,14 +1,14 @@
 <script setup lang="ts">
+import type { Intern } from '@/interfaces/intern';
+import { client } from '@/services/client';
 import FlexColumn from '@/shared/ui/FlexColumn.vue';
 import InputField from '@/shared/ui/InputField.vue';
 import PrimaryButton from '@/shared/ui/PrimaryButton.vue';
 import Title from '@/shared/ui/Title.vue';
-import { createUser } from '@/server/actions/create-user';
-import type { User } from '@/types/user';
 import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
 
-const user = reactive<User>({
+const user = reactive<Intern>({
   id: '1',
   firstName: 'John',
   lastName: 'Doe',
@@ -21,11 +21,9 @@ const addNewUser = (e: Event) => {
   e.preventDefault();
 
   const data = new FormData(e.target as HTMLFormElement);
-  const newUser = Object.fromEntries(data.entries());
+  const newUser = Object.fromEntries(data.entries()) as unknown as Intern;
 
-  console.log(newUser);
-
-  createUser(newUser);
+  client.addIntern(newUser);
   router.push('/');
 };
 </script>

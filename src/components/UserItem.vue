@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import IconEdit from '@/icons/IconEdit.vue';
 import IconTrash from '@/icons/IconTrash.vue';
-import type { User } from '@/types/user';
+import type { Intern } from '@/interfaces/intern';
+import { client } from '@/services/client';
 import { useRouter } from 'vue-router';
 
-const props = defineProps<User>();
+const props = defineProps<Intern>();
 const router = useRouter();
 
 const redirectToEditPage = () => router.push(`/edit/${props.id}`);
 const deleteUser = (id: string) => {
-  fetch(`http://localhost:3000/users/${id}`, { method: 'DELETE' });
+  client.deleteIntern(id);
   window.location.reload();
 };
 </script>
